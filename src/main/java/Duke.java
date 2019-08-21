@@ -1,8 +1,19 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
     private String hLine = "    ____________________________________________________________";
+    private ArrayList<String> store = new ArrayList<>();
+
+    public void answer(ArrayList<String> input) {
+        System.out.println(this.hLine);
+        int size = input.size();
+        for (int i = 0; i < size; i++) {
+            System.out.println(String.format("    %d. %s", i+1, input.get(i)));
+        }
+        System.out.println(this.hLine);
+    }
 
     public void answer(String input) {
         System.out.println(this.hLine);
@@ -20,6 +31,15 @@ public class Duke {
 
     public void echo(String input) {
         this.answer(input);
+    }
+
+    public void add(String input) {
+        this.store.add(input);
+        this.answer("added: " + input);
+    }
+
+    public void list() {
+        this.answer(this.store);
     }
 
     public static void main(String[] args) {
@@ -40,12 +60,19 @@ public class Duke {
         String input = sc.nextLine();
 
         // Echo
-        while (!input.equals("bye")) {
-            duke.echo(input);
+        while (true) {
+            if (input.equals("bye")) {
+                duke.farewell();
+                break;
+            } else if (input.equals("list")) {
+                duke.list();
+                input = sc.nextLine();
+                continue;
+            }
+            duke.add(input);
             input = sc.nextLine();
         }
 
-        duke.farewell();
         sc.close();
 
     }
