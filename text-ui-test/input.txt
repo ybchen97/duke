@@ -1,0 +1,17 @@
+list
+todo hello
+deadline duke assignment /by tonight 2359
+event itzy concert /at esplanade next friday
+list
+done 2
+list
+done 5
+delete 2
+list
+delete 5
+lsti
+todo
+deadline
+event
+delete f
+bye

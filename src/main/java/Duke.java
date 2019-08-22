@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.awt.image.IndexColorModel;
 import java.util.ArrayList;
 import java.util.function.*;
 
@@ -18,6 +17,12 @@ public class Duke {
         System.out.println(this.hLine);
     }
 
+    public void answer(Supplier<Consumer<Task>> supplier) {
+        System.out.println(this.hLine);
+        supplier.get();
+        System.out.println(this.hLine);
+    }
+
     public void greeting() {
         this.answer("Hello! I'm Duke\n     What can I do for you?");
     }
@@ -26,61 +31,59 @@ public class Duke {
         this.answer("Bye. Hope to see you again soon!");
     }
 
-    public void addTodo(String input) throws IndexOutOfBoundsException {
-
-        Task task;
-        
-        String description = input.substring(5);
-        task = new Todo(description);
-
-        this.taskList.add(task);
-
-        // Printing out messages
-        System.out.println(this.hLine);
-        System.out.println("     Got it. I've added this task: ");
-        System.out.println("       " + task);
+    private void numberOfTasks() {
         int size = this.taskList.size();
         if (size == 1) {
             System.out.println("     Now you have 1 task in the list");
         } else {
             System.out.println("     Now you have " + this.taskList.size() + " tasks in the list");
         }
+    }
+
+    public void addTodo(String input) throws DukeNoArgumentsException {
+
+        if (input.trim().isEmpty()) {
+            throw new DukeNoArgumentsException("No arguments for todo provided!");
+        }
+        Task task = new Todo(input.trim());
+        this.taskList.add(task);
+
+        // Printing out messages
+        System.out.println(this.hLine);
+        System.out.println("     Got it. I've added this task: ");
+        System.out.println("       " + task);
+        this.numberOfTasks();
         System.out.println(this.hLine);
 
     }
 
-    public void addDeadline(String input) {
+    public void addDeadline(String input) throws DukeNoArgumentsException {
 
-        Task task;
+        if (input.isEmpty()) {
+            throw new DukeNoArgumentsException("No arguments for deadline provided!");
+        }
         
-        String description = input.substring(9);
-        String[] details = description.split("/by");
-        System.out.println(details.toString());
-        task = new Deadline(details[0].trim(), details[1].trim());
-
+        String[] details = input.split("/by");
+        Task task = new Deadline(details[0].trim(), details[1].trim());
         this.taskList.add(task);
 
         // Printing out messages
         System.out.println(this.hLine);
         System.out.println("     Got it. I've added this task: ");
         System.out.println("       " + task);
-        int size = this.taskList.size();
-        if (size == 1) {
-            System.out.println("     Now you have 1 task in the list");
-        } else {
-            System.out.println("     Now you have " + this.taskList.size() + " tasks in the list");
-        }
+        this.numberOfTasks();
         System.out.println(this.hLine);
 
     }
 
-    public void addEvent(String input) {
-
-        Task task;
+    public void addEvent(String input) throws DukeNoArgumentsException {
         
-        String description = input.substring(6);
-        String[] details = description.split("/at");
-        task = new Event(details[0].trim(), details[1].trim());
+        if (input.isEmpty()) {
+            throw new DukeNoArgumentsException("No arguments for event provided!");
+        }
+        
+        String[] details = input.split("/at");
+        Task task = new Event(details[0].trim(), details[1].trim());
 
         this.taskList.add(task);
 
@@ -88,17 +91,13 @@ public class Duke {
         System.out.println(this.hLine);
         System.out.println("     Got it. I've added this task: ");
         System.out.println("       " + task);
-        int size = this.taskList.size();
-        if (size == 1) {
-            System.out.println("     Now you have 1 task in the list");
-        } else {
-            System.out.println("     Now you have " + this.taskList.size() + " tasks in the list");
-        }
+        this.numberOfTasks();
         System.out.println(this.hLine);
 
     }
 
     public void list() {
+
         System.out.println(this.hLine);
 
         int size = this.taskList.size();
@@ -115,17 +114,26 @@ public class Duke {
         }
 
         System.out.println(this.hLine);
+
     }
 
     public void complete(int num) throws IndexOutOfBoundsException {
-        Task task = this.taskList.get(num -1);
+
+        Task task = this.taskList.get(num - 1);
         task.complete();
         this.answer("Nice! I've marked this task as done: \n       " + task.toString());
+
     }
 
     public void delete(int num) throws IndexOutOfBoundsException {
-        Task task = this.taskList.remove(num-1);
-        this.answer("Noted. I've removed this task:\n       " + task + "\n     Now you have " + this.taskList.size() + " tasks in the list");
+
+        Task task = this.taskList.remove(num - 1);
+
+        System.out.println(this.hLine);
+        System.out.println("     Noted. I've removed this task:\n       " + task);
+        this.numberOfTasks();
+        System.out.println(this.hLine);
+        
     }
 
     public static void main(String[] args) {
@@ -143,78 +151,87 @@ public class Duke {
 
         // Taking in user input
         Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
 
         // Input handler
         boolean isRunning = true;
         while (isRunning) {
 
-            if (input.equals("bye")) {
-                duke.farewell();
-                isRunning = false;
-                break;
-            }
-            
-            else if (input.equals("list")) {
-                duke.list();
-            }
-            
-            else if (input.contains("done")) {
-                String unsanitzedTaskNum = input.substring(5);
-                int taskNum;
-                try {
-                    taskNum = Integer.parseInt(unsanitzedTaskNum);
-                    duke.complete(taskNum);
-                } catch (NumberFormatException e) {
-                    duke.answer("Please type \"done <number>\" where <number> is an integer");
-                } catch (IndexOutOfBoundsException e) {
-                    duke.answer("Task does not exist!");
-                } 
-            }
+            String command = sc.next();
 
-            else if (input.contains("delete")) {
-                String unsanitzedTaskNum = input.substring(7);
-                int taskNum;
-                try {
-                    taskNum = Integer.parseInt(unsanitzedTaskNum);
-                    duke.delete(taskNum);
-                } catch (NumberFormatException e) {
-                    duke.answer("Please type \"delete <number>\" where <number> is an integer");
-                } catch (IndexOutOfBoundsException e) {
-                    duke.answer("Task does not exist!");
-                } 
-            }
+            switch (command) {
 
-            else if (input.contains("todo")) {
-                try {
-                    duke.addTodo(input);
-                } catch (IndexOutOfBoundsException e) {
-                    duke.answer("\u2639 OOPS!!! The description of a todo cannot be empty.");
+                case "bye":
+                    duke.farewell();
+                    isRunning = false;
+                    break;
+                
+                case "list":
+                    duke.list();
+                    break;
+                
+                case "done": {
+                    String unsanitzedTaskNum = sc.nextLine();
+                    int taskNum;
+                    try {
+                        taskNum = Integer.parseInt(unsanitzedTaskNum.trim());
+                        duke.complete(taskNum);
+                    } catch (NumberFormatException e) {
+                        duke.answer("Please type \"done <number>\" where <number> is an integer");
+                    } catch (IndexOutOfBoundsException e) {
+                        duke.answer("Task does not exist!");
+                    } 
+                    break;
                 }
-            }
 
-            else if (input.contains("deadline")) {
-                try {
-                    duke.addDeadline(input);
-                } catch (IndexOutOfBoundsException e) {
-                    duke.answer("\u2639 OOPS!!! The description of a deadline cannot be empty.");
+                case "delete": {
+                    String unsanitzedTaskNum = sc.nextLine();
+                    int taskNum;
+                    try {
+                        taskNum = Integer.parseInt(unsanitzedTaskNum.trim());
+                        duke.delete(taskNum);
+                    } catch (NumberFormatException e) {
+                        duke.answer("Please type \"delete <number>\" where <number> is an integer");
+                    } catch (IndexOutOfBoundsException e) {
+                        duke.answer("Task does not exist!");
+                    } 
+                    break;
                 }
-            }
 
-            else if (input.contains("event")) {
-                try {
-                    duke.addEvent(input);
-                } catch (IndexOutOfBoundsException e) {
-                    duke.answer("\u2639 OOPS!!! The description of a event cannot be empty.");
+                case "todo": {
+                    String todoArgs = sc.nextLine();
+                    try {
+                        duke.addTodo(todoArgs);
+                    } catch (DukeNoArgumentsException e) {
+                        duke.answer("\u2639 OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    break;
                 }
+
+                case "deadline": {
+                    String todoArgs = sc.nextLine();
+                    try {
+                        duke.addDeadline(todoArgs);
+                    } catch (DukeNoArgumentsException e) {
+                        duke.answer("\u2639 OOPS!!! The description of a deadline cannot be empty.");
+                    }
+                    break;
+                }
+
+                case "event": {
+                    String todoArgs = sc.nextLine();
+                    try {
+                        duke.addEvent(todoArgs);
+                    } catch (DukeNoArgumentsException e) {
+                        duke.answer("\u2639 OOPS!!! The description of a event cannot be empty.");
+                    }
+                    break;
+                }
+
+                default:
+                    duke.answer("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-("); 
+                    sc.nextLine();
+
             }
-
-            else {
-                duke.answer("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-("); 
-            }
-
-            input = sc.nextLine();
-
         }
 
         sc.close();
