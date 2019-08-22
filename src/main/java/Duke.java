@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.awt.image.IndexColorModel;
 import java.util.ArrayList;
 import java.util.function.*;
 
@@ -99,14 +100,18 @@ public class Duke {
 
     public void list() {
         System.out.println(this.hLine);
-        System.out.println("     Here are your tasks in your list:");
 
         int size = this.taskList.size();
-        for (int i = 0; i < size; i++) {
-            System.out.println(String.format(
-                "     %d. %s", 
-                i + 1, 
-                this.taskList.get(i)));
+        if (size == 0) {
+            System.out.println("     You have no tasks currently.");
+        } else {
+            System.out.println("     Here are your tasks in your list:");
+            for (int i = 0; i < size; i++) {
+                System.out.println(String.format(
+                    "     %d. %s", 
+                    i + 1, 
+                    this.taskList.get(i)));
+            }
         }
 
         System.out.println(this.hLine);
@@ -116,6 +121,11 @@ public class Duke {
         Task task = this.taskList.get(num -1);
         task.complete();
         this.answer("Nice! I've marked this task as done: \n       " + task.toString());
+    }
+
+    public void delete(int num) throws IndexOutOfBoundsException {
+        Task task = this.taskList.remove(num-1);
+        this.answer("Noted. I've removed this task:\n       " + task + "\n     Now you have " + this.taskList.size() + " tasks in the list");
     }
 
     public static void main(String[] args) {
@@ -162,6 +172,19 @@ public class Duke {
                 } 
             }
 
+            else if (input.contains("delete")) {
+                String unsanitzedTaskNum = input.substring(7);
+                int taskNum;
+                try {
+                    taskNum = Integer.parseInt(unsanitzedTaskNum);
+                    duke.delete(taskNum);
+                } catch (NumberFormatException e) {
+                    duke.answer("Please type \"delete <number>\" where <number> is an integer");
+                } catch (IndexOutOfBoundsException e) {
+                    duke.answer("Task does not exist!");
+                } 
+            }
+
             else if (input.contains("todo")) {
                 try {
                     duke.addTodo(input);
@@ -171,11 +194,19 @@ public class Duke {
             }
 
             else if (input.contains("deadline")) {
-                duke.addDeadline(input);
+                try {
+                    duke.addDeadline(input);
+                } catch (IndexOutOfBoundsException e) {
+                    duke.answer("\u2639 OOPS!!! The description of a deadline cannot be empty.");
+                }
             }
 
             else if (input.contains("event")) {
-                duke.addEvent(input);
+                try {
+                    duke.addEvent(input);
+                } catch (IndexOutOfBoundsException e) {
+                    duke.answer("\u2639 OOPS!!! The description of a event cannot be empty.");
+                }
             }
 
             else {
