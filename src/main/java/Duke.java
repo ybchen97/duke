@@ -1,21 +1,14 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.function.*;
 
 public class Duke {
 
     private String hLine = "    ____________________________________________________________";
-    private ArrayList<Task> store = new ArrayList<>();
+    private ArrayList<Task> taskList;
 
-    public void answer(ArrayList<Task> input) {
-        System.out.println(this.hLine);
-        int size = input.size();
-        for (int i = 0; i < size; i++) {
-            System.out.println(String.format(
-                "     %d. %s", 
-                i + 1, 
-                input.get(i)));
-        }
-        System.out.println(this.hLine);
+    public Duke() {
+        this.taskList = new ArrayList<Task>();
     }
 
     public void answer(String input) {
@@ -32,23 +25,62 @@ public class Duke {
         this.answer("Bye. Hope to see you again soon!");
     }
 
-    public void echo(String input) {
-        this.answer(input);
-    }
-
     public void add(String input) {
-        this.store.add(new Task(input));
-        this.answer("added: " + input);
+        Task task;
+        if (input.contains("todo")) {
+
+            String description = input.substring(5);
+            task = new Todo(description);
+
+        } else if (input.contains("deadline")) {
+            
+            String description = input.substring(9);
+            String[] details = description.split("/by");
+            System.out.println(details.toString());
+            task = new Deadline(details[0].trim(), details[1].trim());
+
+        } else {
+
+            String description = input.substring(6);
+            String[] details = description.split("/at");
+            task = new Event(details[0].trim(), details[1].trim());
+
+        }
+
+        this.taskList.add(task);
+
+        // Printing out messages
+        System.out.println(this.hLine);
+        System.out.println("     Got it. I've added this task: ");
+        System.out.println("       " + task);
+        int size = this.taskList.size();
+        if (size == 1) {
+            System.out.println("     Now you have 1 task in the list");
+        } else {
+            System.out.println("     Now you have " + this.taskList.size() + " tasks in the list");
+        }
+        System.out.println(this.hLine);
     }
 
     public void list() {
-        this.answer(this.store);
+        System.out.println(this.hLine);
+        System.out.println("     Here are your tasks in your list:");
+
+        int size = this.taskList.size();
+        for (int i = 0; i < size; i++) {
+            System.out.println(String.format(
+                "     %d. %s", 
+                i + 1, 
+                this.taskList.get(i)));
+        }
+
+        System.out.println(this.hLine);
     }
 
     public void complete(int num) throws IndexOutOfBoundsException {
-        Task task = this.store.get(num -1);
+        Task task = this.taskList.get(num -1);
         task.complete();
-        this.answer("Nice! I've marked this task as done: \n      " + task.toString());
+        this.answer("Nice! I've marked this task as done: \n       " + task.toString());
     }
 
     public static void main(String[] args) {
@@ -71,13 +103,18 @@ public class Duke {
         // Input handler
         boolean isRunning = true;
         while (isRunning) {
+
             if (input.equals("bye")) {
                 duke.farewell();
                 isRunning = false;
                 break;
-            } else if (input.equals("list")) {
+            }
+            
+            else if (input.equals("list")) {
                 duke.list();
-            } else if (input.contains("done")) {
+            }
+            
+            else if (input.contains("done")) {
                 String unsanitzedTaskNum = input.substring(5);
                 int taskNum;
                 try {
@@ -88,11 +125,29 @@ public class Duke {
                 } catch (IndexOutOfBoundsException e) {
                     duke.answer("Task does not exist!");
                 } 
-            } else {
+            }
+
+            // else if (input.contains("todo")) {
+            //     duke.addTodo(input);
+            // }
+
+            // else if (input.contains("deadline")) {
+            //     duke.addDeadline(input);
+            // }
+
+            // else if (input.contains("event")) {
+            //     duke.addEvent(input);
+            // }
+            
+            else {
                 duke.add(input);
             }
+
             input = sc.nextLine();
+
         }
+
         sc.close();
+
     }
 }
