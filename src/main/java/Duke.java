@@ -4,25 +4,28 @@ import java.util.ArrayList;
 public class Duke {
 
     private String hLine = "    ____________________________________________________________";
-    private ArrayList<String> store = new ArrayList<>();
+    private ArrayList<Task> store = new ArrayList<>();
 
-    public void answer(ArrayList<String> input) {
+    public void answer(ArrayList<Task> input) {
         System.out.println(this.hLine);
         int size = input.size();
         for (int i = 0; i < size; i++) {
-            System.out.println(String.format("    %d. %s", i+1, input.get(i)));
+            System.out.println(String.format(
+                "     %d. %s", 
+                i + 1, 
+                input.get(i)));
         }
         System.out.println(this.hLine);
     }
 
     public void answer(String input) {
         System.out.println(this.hLine);
-        System.out.println("    " + input);
+        System.out.println("     " + input);
         System.out.println(this.hLine);
     }
 
     public void greeting() {
-        this.answer("Hello! I'm Duke\n    What can I do for you?");
+        this.answer("Hello! I'm Duke\n     What can I do for you?");
     }
 
     public void farewell() {
@@ -34,12 +37,18 @@ public class Duke {
     }
 
     public void add(String input) {
-        this.store.add(input);
+        this.store.add(new Task(input));
         this.answer("added: " + input);
     }
 
     public void list() {
         this.answer(this.store);
+    }
+
+    public void complete(int num) throws IndexOutOfBoundsException {
+        Task task = this.store.get(num -1);
+        task.complete();
+        this.answer("Nice! I've marked this task as done: \n      " + task.toString());
     }
 
     public static void main(String[] args) {
@@ -59,21 +68,31 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
 
-        // Echo
-        while (true) {
+        // Input handler
+        boolean isRunning = true;
+        while (isRunning) {
             if (input.equals("bye")) {
                 duke.farewell();
+                isRunning = false;
                 break;
             } else if (input.equals("list")) {
                 duke.list();
-                input = sc.nextLine();
-                continue;
+            } else if (input.contains("done")) {
+                String unsanitzedTaskNum = input.substring(5);
+                int taskNum;
+                try {
+                    taskNum = Integer.parseInt(unsanitzedTaskNum);
+                    duke.complete(taskNum);
+                } catch (NumberFormatException e) {
+                    duke.answer("Please type \"done <number>\" where <number> is an integer");
+                } catch (IndexOutOfBoundsException e) {
+                    duke.answer("Task does not exist!");
+                } 
+            } else {
+                duke.add(input);
             }
-            duke.add(input);
             input = sc.nextLine();
         }
-
         sc.close();
-
     }
 }
