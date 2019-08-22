@@ -25,27 +25,12 @@ public class Duke {
         this.answer("Bye. Hope to see you again soon!");
     }
 
-    public void add(String input) {
+    public void addTodo(String input) throws IndexOutOfBoundsException {
+
         Task task;
-        if (input.contains("todo")) {
-
-            String description = input.substring(5);
-            task = new Todo(description);
-
-        } else if (input.contains("deadline")) {
-            
-            String description = input.substring(9);
-            String[] details = description.split("/by");
-            System.out.println(details.toString());
-            task = new Deadline(details[0].trim(), details[1].trim());
-
-        } else {
-
-            String description = input.substring(6);
-            String[] details = description.split("/at");
-            task = new Event(details[0].trim(), details[1].trim());
-
-        }
+        
+        String description = input.substring(5);
+        task = new Todo(description);
 
         this.taskList.add(task);
 
@@ -60,6 +45,56 @@ public class Duke {
             System.out.println("     Now you have " + this.taskList.size() + " tasks in the list");
         }
         System.out.println(this.hLine);
+
+    }
+
+    public void addDeadline(String input) {
+
+        Task task;
+        
+        String description = input.substring(9);
+        String[] details = description.split("/by");
+        System.out.println(details.toString());
+        task = new Deadline(details[0].trim(), details[1].trim());
+
+        this.taskList.add(task);
+
+        // Printing out messages
+        System.out.println(this.hLine);
+        System.out.println("     Got it. I've added this task: ");
+        System.out.println("       " + task);
+        int size = this.taskList.size();
+        if (size == 1) {
+            System.out.println("     Now you have 1 task in the list");
+        } else {
+            System.out.println("     Now you have " + this.taskList.size() + " tasks in the list");
+        }
+        System.out.println(this.hLine);
+
+    }
+
+    public void addEvent(String input) {
+
+        Task task;
+        
+        String description = input.substring(6);
+        String[] details = description.split("/at");
+        task = new Event(details[0].trim(), details[1].trim());
+
+        this.taskList.add(task);
+
+        // Printing out messages
+        System.out.println(this.hLine);
+        System.out.println("     Got it. I've added this task: ");
+        System.out.println("       " + task);
+        int size = this.taskList.size();
+        if (size == 1) {
+            System.out.println("     Now you have 1 task in the list");
+        } else {
+            System.out.println("     Now you have " + this.taskList.size() + " tasks in the list");
+        }
+        System.out.println(this.hLine);
+
     }
 
     public void list() {
@@ -127,20 +162,24 @@ public class Duke {
                 } 
             }
 
-            // else if (input.contains("todo")) {
-            //     duke.addTodo(input);
-            // }
+            else if (input.contains("todo")) {
+                try {
+                    duke.addTodo(input);
+                } catch (IndexOutOfBoundsException e) {
+                    duke.answer("\u2639 OOPS!!! The description of a todo cannot be empty.");
+                }
+            }
 
-            // else if (input.contains("deadline")) {
-            //     duke.addDeadline(input);
-            // }
+            else if (input.contains("deadline")) {
+                duke.addDeadline(input);
+            }
 
-            // else if (input.contains("event")) {
-            //     duke.addEvent(input);
-            // }
-            
+            else if (input.contains("event")) {
+                duke.addEvent(input);
+            }
+
             else {
-                duke.add(input);
+                duke.answer("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-("); 
             }
 
             input = sc.nextLine();
