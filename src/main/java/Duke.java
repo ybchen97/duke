@@ -160,76 +160,76 @@ public class Duke {
 
             switch (command) {
 
-                case "bye":
-                    duke.farewell();
-                    isRunning = false;
-                    break;
-                
-                case "list":
-                    duke.list();
-                    break;
-                
-                case "done": {
-                    String unsanitzedTaskNum = sc.nextLine();
-                    int taskNum;
-                    try {
-                        taskNum = Integer.parseInt(unsanitzedTaskNum.trim());
-                        duke.complete(taskNum);
-                    } catch (NumberFormatException e) {
-                        duke.answer("Please type \"done <number>\" where <number> is an integer");
-                    } catch (IndexOutOfBoundsException e) {
-                        duke.answer("Task does not exist!");
-                    } 
-                    break;
-                }
+            case "bye":
+                duke.farewell();
+                isRunning = false;
+                break;
+            
+            case "list":
+                duke.list();
+                break;
+            
+            case "done": {
+                String unsanitzedTaskNum = sc.nextLine();
+                int taskNum;
+                try {
+                    taskNum = Integer.parseInt(unsanitzedTaskNum.trim());
+                    duke.complete(taskNum);
+                } catch (NumberFormatException e) {
+                    duke.answer("Please type \"done <number>\" where <number> is an integer");
+                } catch (IndexOutOfBoundsException e) {
+                    duke.answer("Task does not exist!");
+                } 
+                break;
+            }
 
-                case "delete": {
-                    String unsanitzedTaskNum = sc.nextLine();
-                    int taskNum;
-                    try {
-                        taskNum = Integer.parseInt(unsanitzedTaskNum.trim());
-                        duke.delete(taskNum);
-                    } catch (NumberFormatException e) {
-                        duke.answer("Please type \"delete <number>\" where <number> is an integer");
-                    } catch (IndexOutOfBoundsException e) {
-                        duke.answer("Task does not exist!");
-                    } 
-                    break;
-                }
+            case "delete": {
+                String unsanitzedTaskNum = sc.nextLine();
+                int taskNum;
+                try {
+                    taskNum = Integer.parseInt(unsanitzedTaskNum.trim());
+                    duke.delete(taskNum);
+                } catch (NumberFormatException e) {
+                    duke.answer("Please type \"delete <number>\" where <number> is an integer");
+                } catch (IndexOutOfBoundsException e) {
+                    duke.answer("Task does not exist!");
+                } 
+                break;
+            }
 
-                case "todo": {
-                    String todoArgs = sc.nextLine();
-                    try {
-                        duke.addTodo(todoArgs);
-                    } catch (DukeNoArgumentsException e) {
-                        duke.answer("\u2639 OOPS!!! The description of a todo cannot be empty.");
-                    }
-                    break;
+            case "todo": {
+                String todoArgs = sc.nextLine();
+                try {
+                    duke.addTodo(todoArgs);
+                } catch (DukeNoArgumentsException e) {
+                    duke.answer("\u2639 OOPS!!! The description of a todo cannot be empty.");
                 }
+                break;
+            }
 
-                case "deadline": {
-                    String todoArgs = sc.nextLine();
-                    try {
-                        duke.addDeadline(todoArgs);
-                    } catch (DukeNoArgumentsException e) {
-                        duke.answer("\u2639 OOPS!!! The description of a deadline cannot be empty.");
-                    }
-                    break;
+            case "deadline": {
+                String todoArgs = sc.nextLine();
+                try {
+                    duke.addDeadline(todoArgs);
+                } catch (DukeNoArgumentsException e) {
+                    duke.answer("\u2639 OOPS!!! The description of a deadline cannot be empty.");
                 }
+                break;
+            }
 
-                case "event": {
-                    String todoArgs = sc.nextLine();
-                    try {
-                        duke.addEvent(todoArgs);
-                    } catch (DukeNoArgumentsException e) {
-                        duke.answer("\u2639 OOPS!!! The description of a event cannot be empty.");
-                    }
-                    break;
+            case "event": {
+                String todoArgs = sc.nextLine();
+                try {
+                    duke.addEvent(todoArgs);
+                } catch (DukeNoArgumentsException e) {
+                    duke.answer("\u2639 OOPS!!! The description of a event cannot be empty.");
                 }
+                break;
+            }
 
-                default:
-                    duke.answer("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-("); 
-                    sc.nextLine();
+            default:
+                duke.answer("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-("); 
+                sc.nextLine();
 
             }
         }
