@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.function.*;
 
 public class Duke {
 
@@ -14,12 +13,6 @@ public class Duke {
     public void answer(String input) {
         System.out.println(this.hLine);
         System.out.println("     " + input);
-        System.out.println(this.hLine);
-    }
-
-    public void answer(Supplier<Consumer<Task>> supplier) {
-        System.out.println(this.hLine);
-        supplier.get();
         System.out.println(this.hLine);
     }
 
@@ -230,7 +223,7 @@ public class Duke {
             default:
                 duke.answer("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-("); 
                 sc.nextLine();
-
+                break;
             }
         }
 
