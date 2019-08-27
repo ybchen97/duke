@@ -1,5 +1,6 @@
-import java.security.spec.RSAOtherPrimeInfo;
-import java.util.Arrays;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -60,14 +61,23 @@ public class Duke {
 
     }
 
-    public void addDeadline(String input) throws DukeNoArgumentsException {
+    public void addDeadline(String input) throws DukeNoArgumentsException, DukeIllegalArgumentException {
 
         if (input.isEmpty()) {
             throw new DukeNoArgumentsException("No arguments for deadline provided!");
         }
         
         String[] details = input.split("/by");
-        Task task = new Deadline(details[0].trim(), details[1].trim());
+
+        // Parsing date string into date object
+        String format = "dd/mm/yyyy HHmm";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = dateFormat.parse(details[1], new ParsePosition(0));
+        if (date == null) {
+            throw new DukeIllegalArgumentException("Illegal arguments for deadline provided!");
+        }
+
+        Task task = new Deadline(details[0].trim(), date);
         this.taskList.add(task);
 
         // Printing out messages
