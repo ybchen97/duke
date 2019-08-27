@@ -1,4 +1,4 @@
-public class DukeNoArgumentsException extends Exception {
+public class DukeNoArgumentsException extends DukeException {
     public DukeNoArgumentsException(String s) {
         super(s);
     }
