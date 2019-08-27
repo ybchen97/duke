@@ -1,5 +1,15 @@
+import java.security.spec.RSAOtherPrimeInfo;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
 
@@ -17,7 +27,7 @@ public class Duke {
     }
 
     public void greeting() {
-        this.answer("Hello! I'm Duke\n     What can I do for you?");
+        this.answer("Hello! I'm Bobo_bot\n     What can I do for you?");
     }
 
     public void farewell() {
@@ -129,7 +139,71 @@ public class Duke {
         
     }
 
+    public void loadData(String path) throws IOException {
+
+        // read the content from file
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+        String line = bufferedReader.readLine();
+
+        while (line != null) {
+
+            String[] task = line.split(" [|] ");
+            switch (task[0]) {
+            
+            case "T": {
+                Task t = new Todo(task[2]);
+                if (task[1].equals("1")) {
+                    t.complete();
+                }
+                this.taskList.add(t);
+                break;
+            }
+
+            case "D": {
+                Task t = new Deadline(task[2], task[3]);
+                if (task[1].equals("1")) {
+                    t.complete();
+                }
+                this.taskList.add(t);
+                break;
+            }
+
+            case "E": {
+                Task t = new Event(task[2], task[3]);
+                if (task[1].equals("1")) {
+                    t.complete();
+                }
+                this.taskList.add(t);
+                break;
+            }
+
+            default:
+                System.out.println("bobo_bot does not recognize this task!");
+                break;
+            }
+            
+            line = bufferedReader.readLine();
+
+        }
+
+        bufferedReader.close();
+
+    }
+
+    // public void saveData(String path) throws IOException {
+
+    //     // write the content in file 
+    //     BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path));
+
+    //     String fileContent = "This is a sample text.";
+    //     bufferedWriter.write(fileContent);
+
+    //     bufferedWriter.close();
+
+    // }
+
     public static void main(String[] args) {
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -137,7 +211,16 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
+        // Initializing Duke and loading data from hard drive
         Duke duke = new Duke();
+        String dataPath = "../../../data/dukeData.txt";
+        try {
+            duke.loadData(dataPath);
+        } catch (FileNotFoundException e) {
+            System.out.println("bobo_bot cannot find the data file to load! Please re-specify your file path!");
+        } catch (IOException e) {
+            System.out.println("An error occurred when reading the file! :(");
+        }
 
         // Greeting from Duke
         duke.greeting();
@@ -163,10 +246,10 @@ public class Duke {
                 break;
             
             case "done": {
-                String unsanitzedTaskNum = sc.nextLine();
+                String unsanitizedTaskNum = sc.nextLine();
                 int taskNum;
                 try {
-                    taskNum = Integer.parseInt(unsanitzedTaskNum.trim());
+                    taskNum = Integer.parseInt(unsanitizedTaskNum.trim());
                     duke.complete(taskNum);
                 } catch (NumberFormatException e) {
                     duke.answer("Please type \"done <number>\" where <number> is an integer");
@@ -177,10 +260,10 @@ public class Duke {
             }
 
             case "delete": {
-                String unsanitzedTaskNum = sc.nextLine();
+                String unsanitizedTaskNum = sc.nextLine();
                 int taskNum;
                 try {
-                    taskNum = Integer.parseInt(unsanitzedTaskNum.trim());
+                    taskNum = Integer.parseInt(unsanitizedTaskNum.trim());
                     duke.delete(taskNum);
                 } catch (NumberFormatException e) {
                     duke.answer("Please type \"delete <number>\" where <number> is an integer");
