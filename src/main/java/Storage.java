@@ -7,12 +7,24 @@ import java.util.regex.Matcher;
 
 public class Storage {
 
+    /** Path of the file where the task data is stored. */
     private String path;
 
+    /**
+     * Constructor for Storage object.
+     *
+     * @param filePath Path of the file where the task data is stored.
+     */
     public Storage(String filePath) {
         this.path = filePath;
     }
 
+    /**
+     * Decodes data of file specified by path and returns an ArrayList of Task objects read from the file.
+     *
+     * @return An ArrayList\<Task\> containing Task objects that are decoded from the file specified by path.
+     * @throws DukeException
+     */
     public ArrayList<Task> load() throws DukeException {
 
         // taskList to store the tasks loaded
@@ -124,6 +136,12 @@ public class Storage {
 
     }
 
+    /**
+     * Saves current list of Task objects in taskList into a file specified by path.
+     *
+     * @param taskList A TaskList object of Tasks objects
+     * @throws IOException
+     */
     public void save(TaskList taskList) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.path));
         ArrayList<Task> tasks = taskList.getAllTasks();
