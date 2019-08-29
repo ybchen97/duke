@@ -1,1 +1,4 @@
-T|0|hi hiD|0|2103 project|29-59-2019 23:59E|0|vibe lesson|29-30-2019 20:30|29-00-2019 22:00
+T|0|hi hi
+D|0|2103 project|29-59-2019 23:59
+E|0|vibe lesson|29-30-2019 20:30|29-00-2019 22:00
+T|0|prepare for vibe lesson

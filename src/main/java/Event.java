@@ -16,7 +16,7 @@ public class Event extends Task {
 
     public String encode() {
         return String.format(
-                "E|%d|%s|%s|%s",
+                "E|%d|%s|%s|%s\n",
                 super.isDone ? 1 : 0,
                 super.description,
                 this.dateFormat.format(this.startDate),

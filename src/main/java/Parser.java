@@ -86,6 +86,13 @@ public class Parser {
             commandToExecute = new AddEventCommand(taskDetails[0].trim(), startDateTime, endDateTime);
             break;
         }
+
+        case "find": {
+            // todo error handling when user provides more than one word as argument
+            String keyword = command[1];
+            commandToExecute = new FindCommand(keyword);
+            break;
+        }
         
         default:
             commandToExecute = new IllegalCommand();

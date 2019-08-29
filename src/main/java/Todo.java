@@ -6,7 +6,7 @@ public class Todo extends Task {
 
     public String encode() {
         return String.format(
-                "T|%d|%s",
+                "T|%d|%s\n",
                 super.isDone ? 1 : 0,
                 super.description);
     }

@@ -60,6 +60,22 @@ public class Ui {
         System.out.println(this.hLine);
     }
 
+    public void showFindTask(ArrayList<Task> foundTasks) {
+        if (foundTasks.isEmpty()) {
+            this.answer("Sorry I can't seem to find this task in my list :(");
+        } else {
+            System.out.println(this.hLine);
+            System.out.println("     Found them! Here are the matching tasks in my list:\n");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                System.out.println(String.format(
+                        "     %d. %s",
+                        i + 1,
+                        foundTasks.get(i)));
+            }
+            System.out.println(this.hLine);
+        }
+    }
+
     public void showIllegalCommand() {
         this.answer("Sorry I do not understand that command :(");
     }
