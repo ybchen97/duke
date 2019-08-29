@@ -3,9 +3,6 @@ import java.util.ArrayList;
 
 public class Duke {
 
-    private String hLine = "    ____________________________________________________________";
-    private ArrayList<Task> taskList;
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;

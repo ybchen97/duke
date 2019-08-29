@@ -75,7 +75,8 @@ public class Parser {
         
         case "event": {
             String[] taskDetails = command[1].trim().split(" /at ");
-            Pattern dateFormat = Pattern.compile("(?<date>\\d{2}/\\d{2}/\\d{4})\\s(?<startTime>\\d{2}\\d{2})-(?<endTime>\\d{2}\\d{2})");
+            Pattern dateFormat = Pattern.compile("(?<date>\\d{2}/\\d{2}/\\d{4})\\s"
+                    + "(?<startTime>\\d{2}\\d{2})-(?<endTime>\\d{2}\\d{2})");
             Matcher matcher = dateFormat.matcher(taskDetails[1].trim());
             if (!matcher.matches()) {
                 throw new DukeIllegalArgumentException("Illegal date format! Follow <dd/mm/yyyy HHmm-HHmm>!");

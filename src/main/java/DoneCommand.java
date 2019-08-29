@@ -6,6 +6,7 @@ public class DoneCommand extends Command {
     public DoneCommand(int num) {
         this.taskNum = num;
     }
+    
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task t = tasks.complete(this.taskNum);
         try {

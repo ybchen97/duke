@@ -1,12 +1,13 @@
 import java.util.ArrayList;
+
 public class Ui {
 
-    private String hLine = "    ____________________________________________________________";
+    private String line = "    ____________________________________________________________";
 
     private void answer(String input) {
-        System.out.println(this.hLine);
+        System.out.println(this.line);
         System.out.println("     " + input);
-        System.out.println(this.hLine);
+        System.out.println(this.line);
     }
 
     public void showWelcome() {
@@ -25,10 +26,10 @@ public class Ui {
 
     public void showAddTask(Task t) {
         // Printing out messages
-        System.out.println(this.hLine);
+        System.out.println(this.line);
         System.out.println("     Got it. I've added this task: ");
         System.out.println("       " + t);
-        System.out.println(this.hLine);
+        System.out.println(this.line);
     }
 
     public void showDone(Task t) {
@@ -36,13 +37,13 @@ public class Ui {
     }
 
     public void showDelete(Task t) {
-        System.out.println(this.hLine);
+        System.out.println(this.line);
         System.out.println("     Noted. I've removed this task:\n       " + t);
-        System.out.println(this.hLine);
+        System.out.println(this.line);
     }
 
     public void showList(ArrayList<Task> tasks) {
-        System.out.println(this.hLine);
+        System.out.println(this.line);
 
         int size = tasks.size();
         if (size == 0) {
@@ -57,7 +58,7 @@ public class Ui {
             }
         }
 
-        System.out.println(this.hLine);
+        System.out.println(this.line);
     }
 
     public void showIllegalCommand() {
