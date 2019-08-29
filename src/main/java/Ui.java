@@ -65,7 +65,7 @@ public class Ui {
         if (foundTasks.isEmpty()) {
             this.answer("Sorry I can't seem to find this task in my list :(");
         } else {
-            System.out.println(this.hLine);
+            System.out.println(this.line);
             System.out.println("     Found them! Here are the matching tasks in my list:\n");
             for (int i = 0; i < foundTasks.size(); i++) {
                 System.out.println(String.format(
@@ -73,7 +73,7 @@ public class Ui {
                         i + 1,
                         foundTasks.get(i)));
             }
-            System.out.println(this.hLine);
+            System.out.println(this.line);
         }
     }
 
