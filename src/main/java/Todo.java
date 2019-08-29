@@ -4,6 +4,13 @@ public class Todo extends Task {
         super(task);
     }
 
+    public String encode() {
+        return String.format(
+                "T|%d|%s",
+                super.isDone ? 1 : 0,
+                super.description);
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
