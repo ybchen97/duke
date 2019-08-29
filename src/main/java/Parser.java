@@ -32,8 +32,8 @@ public class Parser {
      *
      * @param fullCommand A string provided from the user input.
      * @return A Command object that corresponds to which command the user gives in the input.
-     * @throws DukeNoArgumentsException
-     * @throws DukeIllegalArgumentException
+     * @throws DukeNoArgumentsException Thrown if no arguments are inputted with the command.
+     * @throws DukeIllegalArgumentException Thrown if an illegal argument is inputted.
      */
     public static Command parse(String fullCommand) throws DukeNoArgumentsException, DukeIllegalArgumentException {
         String[] command = fullCommand.split("\\s", 2);

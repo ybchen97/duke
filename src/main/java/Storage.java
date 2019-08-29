@@ -27,8 +27,8 @@ public class Storage {
     /**
      * Decodes data of file specified by path and returns an ArrayList of Task objects read from the file.
      *
-     * @return An ArrayList\<Task\> containing Task objects that are decoded from the file specified by path.
-     * @throws DukeException
+     * @return An ArrayList containing Task objects that are decoded from the file specified by path.
+     * @throws DukeException Throws DukeException when file is not found, or when there is error reading the file.
      */
     public ArrayList<Task> load() throws DukeException {
 
@@ -145,7 +145,7 @@ public class Storage {
      * Saves current list of Task objects in taskList into a file specified by path.
      *
      * @param taskList A TaskList object of Tasks objects
-     * @throws IOException
+     * @throws IOException Throws IOException if there's an error writing to file.
      */
     public void save(TaskList taskList) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.path));
