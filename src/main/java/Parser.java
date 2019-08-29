@@ -3,19 +3,38 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
+    /**
+     * Parser format used to decode Todo tasks.
+     */
     public static final Pattern TODO_TASK_FORMAT = Pattern.compile("^T[|]"
             + "(?<isCompleted>\\d)" + "[|]"
             + "(?<taskDetails>.+)");
+
+    /**
+     * Parser format used to decode Deadline tasks.
+     */
     public static final Pattern DEADLINE_TASK_FORMAT = Pattern.compile("^D[|]"
             + "(?<isCompleted>\\d)" + "[|]"
             + "(?<taskDetails>.+)" + "[|]"
             + "(?<dateTime>\\d{2}-\\d{2}-\\d{4}\\s\\d{2}:\\d{2})");
+
+    /**
+     * Parser format used to decode Event tasks.
+     */
     public static final Pattern EVENT_TASK_FORMAT = Pattern.compile("^E[|]"
             + "(?<isCompleted>\\d)" + "[|]"
             + "(?<taskDetails>.+)" + "[|]"
             + "(?<startDateTime>\\d{2}-\\d{2}-\\d{4}\\s\\d{2}:\\d{2})" + "[|]"
             + "(?<endDateTime>\\d{2}-\\d{2}-\\d{4}\\s\\d{2}:\\d{2})");
 
+    /**
+     * Parses the user input and returns a Command object which corresponds to the command the user gave in the input.
+     *
+     * @param fullCommand A string provided from the user input.
+     * @return A Command object that corresponds to which command the user gives in the input.
+     * @throws DukeNoArgumentsException
+     * @throws DukeIllegalArgumentException
+     */
     public static Command parse(String fullCommand) throws DukeNoArgumentsException, DukeIllegalArgumentException {
         String[] command = fullCommand.split("\\s", 2);
         // todo refactor away this null assignment in parse()
