@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Duke {
 
@@ -62,6 +61,10 @@ public class Duke {
 
     }
 
+    public String getResponse(String input) {
+        return "Bobo_bot heard: " + input;
+    }
+
     /**
      * Main method.
      * @param args String arguments to main method.
@@ -69,7 +72,7 @@ public class Duke {
     public static void main(String[] args) {
 
         // Initializing Duke and loading data from hard drive
-        String dataPath = "../../../data/dukeData.txt";
+        String dataPath = "/data/dukeData.txt";
         Duke duke = new Duke(dataPath);
 
         duke.run();
