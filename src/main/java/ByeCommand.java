@@ -1,6 +1,6 @@
 public class ByeCommand extends Command {
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showFarewell();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showFarewell();
     }
 
     public boolean isExit() {

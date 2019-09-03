@@ -9,7 +9,7 @@ public class AddDeadlineCommand extends Command {
         this.date = date;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task t = tasks.addDeadline(this.taskDescription, this.date);
         try {
             storage.save(tasks);
@@ -18,6 +18,6 @@ public class AddDeadlineCommand extends Command {
             throw new DukeException("Error saving tasks");
         }
         // todo ui showAddTask
-        ui.showAddTask(t);
+        return ui.showAddTask(t);
     }
 }

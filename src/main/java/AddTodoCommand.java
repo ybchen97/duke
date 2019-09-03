@@ -7,7 +7,7 @@ public class AddTodoCommand extends Command {
         this.taskDescription = description;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task t = tasks.addTodo(this.taskDescription);
         try {
             storage.save(tasks);
@@ -16,6 +16,6 @@ public class AddTodoCommand extends Command {
             throw new DukeException("Error saving tasks");
         }
         // todo ui showAddTask
-        ui.showAddTask(t);
+        return ui.showAddTask(t);
     }
 }

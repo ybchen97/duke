@@ -11,7 +11,7 @@ public class AddEventCommand extends Command {
         this.endDateTime = endDateTime;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task t = tasks.addEvent(this.taskDescription, this.startDateTime, this.endDateTime);
         try {
             storage.save(tasks);
@@ -20,6 +20,6 @@ public class AddEventCommand extends Command {
             throw new DukeException("Error saving tasks");
         }
         // todo ui showAddTask
-        ui.showAddTask(t);
+        return ui.showAddTask(t);
     }
 }

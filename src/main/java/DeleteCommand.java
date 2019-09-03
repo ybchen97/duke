@@ -7,7 +7,7 @@ public class DeleteCommand extends Command {
         this.taskNum = num;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task t = tasks.delete(this.taskNum);
         try {
             storage.save(tasks);
@@ -16,6 +16,6 @@ public class DeleteCommand extends Command {
             throw new DukeException("Error saving tasks");
         }
         // todo ui showDelete
-        ui.showDelete(t);
+        return ui.showDelete(t);
     }
 }

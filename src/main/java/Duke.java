@@ -62,7 +62,20 @@ public class Duke {
     }
 
     public String getResponse(String input) {
-        return "Bobo_bot heard: " + input;
+        String response;
+        boolean isExit;
+        try {
+            Command c = Parser.parse(input);
+            response = c.execute(tasks, ui, storage);
+            isExit = c.isExit();
+        } catch (DukeException e) {
+            response = ui.showError(e.getMessage());
+        }
+        return response;
+    }
+
+    public String showWelcome() {
+        return ui.showWelcome();
     }
 
     /**

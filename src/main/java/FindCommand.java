@@ -7,8 +7,8 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> foundTasks = tasks.find(this.keyword);
-        ui.showFindTask(foundTasks);
+        return ui.showFindTask(foundTasks);
     }
 }
