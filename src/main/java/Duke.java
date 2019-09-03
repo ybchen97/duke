@@ -62,6 +62,10 @@ public class Duke {
 
     }
 
+    /**
+     * Main method.
+     * @param args String arguments to main method.
+     */
     public static void main(String[] args) {
 
         // Initializing Duke and loading data from hard drive
