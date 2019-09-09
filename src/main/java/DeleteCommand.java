@@ -15,7 +15,6 @@ public class DeleteCommand extends Command {
             // todo refactor throwing IOException
             throw new DukeException("Error saving tasks");
         }
-        // todo ui showDelete
         return ui.showDelete(t);
     }
 }

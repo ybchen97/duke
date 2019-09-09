@@ -120,7 +120,6 @@ public class Storage {
                 // todo duke does not recognize task exception
                 System.out.println("bobo_bot does not recognize this task!");
                 break;
-
             }
 
             try {

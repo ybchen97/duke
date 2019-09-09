@@ -63,6 +63,7 @@ public class Duke {
 
     public String getResponse(String input) {
         String response;
+        // todo refactor isExit to quit the GUI when isExit is true
         boolean isExit;
         try {
             Command c = Parser.parse(input);
