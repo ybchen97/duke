@@ -15,7 +15,6 @@ public class DoneCommand extends Command {
             // todo refactor throwing IOException
             throw new DukeException("Error saving tasks");
         }
-        // todo ui showDone
         return ui.showDone(t);
     }
 }

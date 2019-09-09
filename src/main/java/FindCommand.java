@@ -4,6 +4,8 @@ public class FindCommand extends Command {
     private String keyword;
 
     public FindCommand(String keyword) {
+        // Check if keyword contains only 1 word
+        assert(keyword.split(" ").length == 1);
         this.keyword = keyword;
     }
 
