@@ -36,9 +36,9 @@ public class Parser {
      * @throws DukeIllegalArgumentException Thrown if an illegal argument is inputted.
      */
     public static Command parse(String fullCommand) throws DukeNoArgumentsException, DukeIllegalArgumentException {
+        // Split the string by the first space
         String[] command = fullCommand.split("\\s", 2);
-        // todo refactor away this null assignment in parse()
-        Command commandToExecute = null;
+        Command commandToExecute;
 
         switch (command[0]) {
 
@@ -80,8 +80,16 @@ public class Parser {
             break;
             
         case "deadline" : {
-            // todo error handling message for illegal date argument
-            String[] taskDetails = command[1].trim().split(" /by ");
+            String[] taskDetails;
+
+            // Check if arguments are missing
+            try {
+                taskDetails = command[1].trim().split(" /by ");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeNoArgumentsException("Missing argument for Deadline!");
+            }
+
+            // Check date format
             Pattern dateFormat = Pattern.compile("\\d{2}/\\d{2}/\\d{4}\\s\\d{2}\\d{2}");
             Matcher matcher = dateFormat.matcher(taskDetails[1].trim());
             if (!matcher.matches()) {
@@ -93,7 +101,16 @@ public class Parser {
         }
         
         case "event": {
-            String[] taskDetails = command[1].trim().split(" /at ");
+            String[] taskDetails;
+
+            // Check if arguments are missing
+            try {
+                taskDetails = command[1].trim().split(" /at ");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeNoArgumentsException("Missing argument for Event!");
+            }
+
+            // Check date format
             Pattern dateFormat = Pattern.compile("(?<date>\\d{2}/\\d{2}/\\d{4})\\s"
                     + "(?<startTime>\\d{2}\\d{2})-(?<endTime>\\d{2}\\d{2})");
             Matcher matcher = dateFormat.matcher(taskDetails[1].trim());
@@ -108,8 +125,22 @@ public class Parser {
         }
 
         case "find": {
-            // todo error handling when user provides more than one word as argument
-            String keyword = command[1];
+            String keyword;
+
+            // Checks if argument is missing
+            try {
+                keyword = command[1];
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeNoArgumentsException(
+                        "Missing argument for find! Please follow the format: find <keyword>!");
+            }
+
+            // Throws exception if more than one keyword is provided
+            if (command[1].split(" ").length > 1) {
+                throw new DukeIllegalArgumentException(
+                        "Please only give a single keyword to find! Follow the format: find <keyword>!");
+            }
+
             commandToExecute = new FindCommand(keyword);
             break;
         }
