@@ -3,7 +3,7 @@ import java.util.Date;
 
 public class Event extends Task {
 
-    private String format = "dd-mm-yyyy HH:mm";
+    private String format = "E, dd MMM, hh:mm a";
     private SimpleDateFormat dateFormat = new SimpleDateFormat(format);
     private Date startDate;
     private Date endDate;

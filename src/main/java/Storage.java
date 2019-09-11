@@ -77,11 +77,14 @@ public class Storage {
                     System.out.println("Had trouble decoding Deadline task!");
                     break;
                 }
+//                System.out.println("Deadline dateTime: " + matcher.group("dateTime"));
 
                 // Parsing date string into date object
-                String format = "dd-mm-yyyy HH:mm";
+                String format = "dd-MM-yyyy HH:mm";
                 SimpleDateFormat dateFormat = new SimpleDateFormat(format);
                 Date date = dateFormat.parse(matcher.group("dateTime"), new ParsePosition(0));
+
+//                System.out.println("Deadline date object: " + date.toString());
 
                 Task t = new Deadline(matcher.group("taskDetails"), date);
                 if (matcher.group("isCompleted").equals("1")) {
@@ -100,12 +103,17 @@ public class Storage {
                     System.out.println("Had trouble decoding Event task!");
                     break;
                 }
+//                System.out.println("Event starting dateTime: " + matcher.group("startDateTime"));
+//                System.out.println("Event starting dateTime: " + matcher.group("endDateTime"));
 
                 // Parsing date string into date object
-                String format = "dd-mm-yyyy HH:mm";
+                String format = "dd-MM-yyyy HH:mm";
                 SimpleDateFormat dateFormat = new SimpleDateFormat(format);
                 Date startDate = dateFormat.parse(matcher.group("startDateTime"), new ParsePosition(0));
                 Date endDate = dateFormat.parse(matcher.group("endDateTime"), new ParsePosition(0));
+
+//                System.out.println("Event starting date object: " + startDate.toString());
+//                System.out.println("Event ending date object: " + endDate.toString());
 
                 Task t = new Event(matcher.group("taskDetails"), startDate, endDate);
                 if (matcher.group("isCompleted").equals("1")) {
