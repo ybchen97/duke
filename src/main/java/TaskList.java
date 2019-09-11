@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class TaskList {
 
-    /** ArrayList that stores all the Task object that the bot currently has */
+    /** ArrayList that stores all the Task object that the bot currently has. */
     private ArrayList<Task> tasks;
 
     /** Constructs TaskList object. */

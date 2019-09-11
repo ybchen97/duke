@@ -61,6 +61,12 @@ public class Duke {
 
     }
 
+    /**
+     * Get the appropriate response when given the user input. Parsing, of user input, execution of corresponding
+     * commands, and getting the ui response happens here.
+     * @param input String denoting the user input
+     * @return String containing the response to the user input
+     */
     public String getResponse(String input) {
         String response;
         // todo refactor isExit to quit the GUI when isExit is true

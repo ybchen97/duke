@@ -8,12 +8,22 @@ public class Event extends Task {
     private Date startDate;
     private Date endDate;
 
+    /**
+     * Constructor of Event.
+     * @param task String object containing the description of the Deadline task
+     * @param startDate Date object denoting the starting date of this Event
+     * @param endDate Date object denoting the ending date of this Event
+     */
     public Event(String task, Date startDate, Date endDate) {
         super(task);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
+    /**
+     * Encodes the Event object in a particular format.
+     * @return String object containing the encoded form of the Event object.
+     */
     public String encode() {
         return String.format(
                 "E|%d|%s|%s|%s\n",
