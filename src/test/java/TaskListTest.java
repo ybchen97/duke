@@ -22,7 +22,7 @@ public class TaskListTest {
         try {
             tasks.complete(100);
         } catch (DukeException e) {
-            assertEquals("Task does not exist", e.getMessage());
+            assertEquals("Task does not exist!", e.getMessage());
         }
     }
 
@@ -36,7 +36,7 @@ public class TaskListTest {
         try {
             tasks.delete(100);
         } catch (DukeException e) {
-            assertEquals("Task does not exist", e.getMessage());
+            assertEquals("Task does not exist!", e.getMessage());
         }
     }
 }
