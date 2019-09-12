@@ -39,12 +39,7 @@ public class TaskList {
      * @return Returns the Deadline object that was added in the TaskList.
      */
     public Task addDeadline(String taskDescription, String dateStr) {
-        // Parsing date string into date object
-        String format = "dd/mm/yyyy HHmm";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-        Date date = dateFormat.parse(dateStr, new ParsePosition(0));
-
-        Task t = new Deadline(taskDescription, date);
+        Task t = new Deadline(taskDescription, dateStr);
         this.tasks.add(t);
         return t;
     }
@@ -57,13 +52,7 @@ public class TaskList {
      * @return Returns the Event object that was added in the TaskList.
      */
     public Task addEvent(String taskDescription, String startDateTimeStr, String endDateTimeStr) {
-        // Parsing date string into date object
-        String format = "dd/mm/yyyy HHmm";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-        Date startDateTime = dateFormat.parse(startDateTimeStr, new ParsePosition(0));
-        Date endDateTime = dateFormat.parse(endDateTimeStr, new ParsePosition(0));
-
-        Task t = new Event(taskDescription, startDateTime, endDateTime);
+        Task t = new Event(taskDescription, startDateTimeStr, endDateTimeStr);
         this.tasks.add(t);
         return t;
     }
@@ -79,7 +68,7 @@ public class TaskList {
         try {
             t = this.tasks.get(num - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Task does not exist");
+            throw new DukeException("Task does not exist!");
         }
         t.complete();
         return t;
@@ -96,7 +85,7 @@ public class TaskList {
         try {
             t = this.tasks.remove(num - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Task does not exist");
+            throw new DukeException("Task does not exist!");
         }
         return t;
     }
@@ -114,6 +103,25 @@ public class TaskList {
             }
         }
         return foundTasks;
+    }
+
+    /**
+     * Snoozes the chosen task by a certain length of time specified by the user.
+     * @param taskNum Integer denoting the index corresponding to the Task object in the list of Task objects
+     * @param length Integer denoting the length of unit time to snooze by
+     * @param unit String object denoting the unit of time to snooze by
+     * @return Task object that is snoozed
+     * @throws DukeException Thrown if the task specified does not exist, or when the wrong unit is used
+     */
+    public Task snooze(int taskNum, int length, String unit) throws DukeException {
+        Task t;
+        try {
+            t = this.tasks.get(taskNum);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Task does not exist!");
+        }
+        t.snooze(length, unit);
+        return t;
     }
 
     /**
