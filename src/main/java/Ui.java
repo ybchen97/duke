@@ -115,6 +115,10 @@ public class Ui {
         return errorMessage;
     }
 
+    public String showSnooze(Task t) {
+        return "Okay! I have snoozed your task:\n" + t.toString();
+    }
+
 }
 
 //     ______       ______       ______

@@ -19,6 +19,10 @@ public class Todo extends Task {
                 super.description);
     }
 
+    public void snooze(int length, String unit) throws DukeException {
+        throw new DukeException("This task cannot be snoozed!");
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

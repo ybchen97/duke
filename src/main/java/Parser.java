@@ -144,6 +144,28 @@ public class Parser {
             commandToExecute = new FindCommand(keyword);
             break;
         }
+
+        case "snooze": {
+            String[] arguments;
+            try {
+                arguments = command[1].split(" ");
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeNoArgumentsException("Missing arguments for snooze! Please follow this format: "
+                        + "snooze <taskNum> <length> <unit>");
+            }
+            if (arguments.length != 3) {
+                // todo refactor to wrong number of arguments duke exception
+                throw new DukeIllegalArgumentException("Wrong number of arguments! Please follow this format: "
+                        + "snooze <taskNum> <length> <unit>");
+            }
+
+            int taskNum = Integer.parseInt(arguments[0]) - 1;
+            int length = Integer.parseInt(arguments[1]);
+            String unit = arguments[2];
+
+            commandToExecute = new SnoozeCommand(taskNum, length, unit);
+            break;
+        }
         
         default:
             commandToExecute = new IllegalCommand();
