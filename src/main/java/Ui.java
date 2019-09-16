@@ -8,11 +8,9 @@ public class Ui {
      */
     public String showWelcome() {
         StringJoiner sj = new StringJoiner("\n", "", "\n");
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = " _\n"
+            + "|_)  _  |_   _  |_   _ _|_\n"
+            + "|_) (_) |_) (_) |_) (_) |_\n";
         sj.add("Hello from\n" + logo);
         sj.add("Hello! I'm Bobo_bot\nWhat can I do for you?");
         return sj.toString();
@@ -121,11 +119,4 @@ public class Ui {
 
 }
 
-//     ______       ______       ______
-//    |   __  \    |   __  \    |   __  \
-//    |  |  |  |   |  |  |  |   |  |  |  |
-//    |   --  /    |   --  /    |   --  /
-//    |   __  \    |   __  \    |   __  \
-//    |  |  |  |   |  |  |  |   |  |  |  |
-//    |   --  /    |   --  /    |   --  /
-//     ------       ------       ------
+

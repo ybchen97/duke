@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * An example of a custom control using FXML.
@@ -22,6 +23,11 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+
+    private final Circle clip = new Circle(49, 40, 40);
+
+    // Colour palette
+    // https://coolors.co/424b54-93a8ac-ffffff-e2b4bd-9b6a6c
 
     /**
      * Constructor of DialogBox class.
@@ -39,7 +45,10 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setMinHeight(Label.USE_PREF_SIZE);
+
         displayPicture.setImage(img);
+        displayPicture.setClip(clip);
     }
 
     /**
@@ -59,7 +68,14 @@ public class DialogBox extends HBox {
      * @return DialogBox object of the User
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setSpacing(5);
+        db.setStyle("-fx-padding: 5;");
+        db.dialog.setStyle("-fx-background-color: #e2b4bd;"
+                + "-fx-background-radius: 10;"
+                + "-fx-padding: 10;"
+                + "-fx-text-fill: #424b54;");
+        return db;
     }
 
     /**
@@ -71,6 +87,12 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setSpacing(5);
+        db.setStyle("-fx-padding: 5;");
+        db.dialog.setStyle("-fx-background-color: #ffffff;"
+                + "-fx-background-radius: 10;"
+                + "-fx-padding: 10;"
+                + "-fx-text-fill: #9b6a6c;");
         return db;
     }
 }
