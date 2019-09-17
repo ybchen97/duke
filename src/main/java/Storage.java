@@ -77,10 +77,10 @@ public class Storage {
                     System.out.println("Had trouble decoding Deadline task!");
                     break;
                 }
-                // System.out.println("Deadline dateTime: " + matcher.group("dateTime"));
-                // System.out.println("Deadline date object: " + date.toString());
 
-                Task t = new Deadline(matcher.group("taskDetails"), matcher.group("dateTime"));
+                SimpleDateFormat parseDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                Date date = parseDateFormat.parse(matcher.group("dateTime"), new ParsePosition(0));
+                Task t = new Deadline(matcher.group("taskDetails"), date);
                 if (matcher.group("isCompleted").equals("1")) {
                     t.complete();
                 }
@@ -97,15 +97,14 @@ public class Storage {
                     System.out.println("Had trouble decoding Event task!");
                     break;
                 }
-                // System.out.println("Event starting dateTime: " + matcher.group("startDateTime"));
-                // System.out.println("Event starting dateTime: " + matcher.group("endDateTime"));
-                // System.out.println("Event starting date object: " + startDate.toString());
-                // System.out.println("Event ending date object: " + endDate.toString());
 
+                SimpleDateFormat parseDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                Date startDate = parseDateFormat.parse(matcher.group("startDateTime"), new ParsePosition(0));
+                Date endDate = parseDateFormat.parse(matcher.group("endDateTime"), new ParsePosition(0));
                 Task t = new Event(
                         matcher.group("taskDetails"),
-                        matcher.group("startDateTime"),
-                        matcher.group("endDateTime"));
+                        startDate,
+                        endDate);
                 if (matcher.group("isCompleted").equals("1")) {
                     t.complete();
                 }

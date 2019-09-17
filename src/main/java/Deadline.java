@@ -18,7 +18,18 @@ public class Deadline extends Task {
      */
     public Deadline(String task, String date) {
         super(task);
-        this.by = encodeDateFormat.parse(date, new ParsePosition(0));
+        SimpleDateFormat parseDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        this.by = parseDateFormat.parse(date, new ParsePosition(0));
+    }
+
+    /**
+     * Constructor of Deadline.
+     * @param task String object containing the description of the Deadline task.
+     * @param date Date object denoting the deadline of this task.
+     */
+    public Deadline(String task, Date date) {
+        super(task);
+        this.by = date;
     }
 
     /**
@@ -26,6 +37,7 @@ public class Deadline extends Task {
      * @return String object containing the encoded form of the Deadline object.
      */
     public String encode() {
+        System.out.println(this.by);
         return String.format(
                 "D|%d|%s|%s\n",
                 super.isDone ? 1 : 0,
