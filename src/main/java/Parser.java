@@ -91,7 +91,13 @@ public class Parser {
 
             // Check date format
             Pattern dateFormat = Pattern.compile("\\d{2}/\\d{2}/\\d{4}\\s\\d{2}\\d{2}");
-            Matcher matcher = dateFormat.matcher(taskDetails[1].trim());
+            Matcher matcher;
+            try {
+                matcher = dateFormat.matcher(taskDetails[1].trim());
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeIllegalArgumentException("Wrong number of arguments! Use the following format:\n"
+                        + "deadline <task description> /by <date time>");
+            }
             if (!matcher.matches()) {
                 throw new DukeIllegalArgumentException("Illegal date format! Follow <dd/mm/yyyy HHmm>!");
             }
@@ -113,7 +119,13 @@ public class Parser {
             // Check date format
             Pattern dateFormat = Pattern.compile("(?<date>\\d{2}/\\d{2}/\\d{4})\\s"
                     + "(?<startTime>\\d{2}\\d{2})-(?<endTime>\\d{2}\\d{2})");
-            Matcher matcher = dateFormat.matcher(taskDetails[1].trim());
+            Matcher matcher;
+            try {
+                matcher = dateFormat.matcher(taskDetails[1].trim());
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeIllegalArgumentException("Wrong number of arguments! Use the following format:\n"
+                        + "event <task description> /at <date time>");
+            }
             if (!matcher.matches()) {
                 throw new DukeIllegalArgumentException("Illegal date format! Follow <dd/mm/yyyy HHmm-HHmm>!");
             }
