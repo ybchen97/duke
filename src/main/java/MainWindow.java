@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -46,8 +47,12 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        String exitMessage = "Bye. Hope to see you again soon!";
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        if (response.contains(exitMessage)) {
+            Platform.exit();
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

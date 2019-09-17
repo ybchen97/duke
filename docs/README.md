@@ -174,13 +174,8 @@ Okay! I have snoozed your task:
 
 ### `bye` - Describe action
 
-Bobo_bot replies with a good bye message.
+Closes the app.
 
 Example of usage: 
 
 `bye`
-
-Expected outcome:
-```
-Bye! Hope to see you again soon!
-```
