@@ -4,7 +4,7 @@
 Bobo_bot is a simple task list manager that allows users to easily manage their tasks with simple text commands.
 
 ### Snapshot of Bobo_bot
-![Bobo_bot](ui.png)
+![Bobo_bot](Ui.png)
 
 *Credits to [Timothy Leong](https://github.com/timothyleong97) for illustration of dinner boi.*
 
