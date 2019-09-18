@@ -28,7 +28,7 @@ Tasks can be snoozed easily at your choice of time intervals.
 
 ## Usage
 
-### `todo` - Describe action
+### `todo`
 
 Adds a `todo` task for bobo_bot to track.
 
@@ -44,7 +44,7 @@ Got it. I have added this task:
 ```
 
 
-### `deadline` - Describe action
+### `deadline`
 
 Adds a `deadline` task for bobo_bot to track.
 
@@ -60,7 +60,7 @@ Got it. I have added this task:
 ```
 
 
-### `event` - Describe action
+### `event`
 
 Adds a `event` task for bobo_bot to track.
 
@@ -76,7 +76,7 @@ Got it. I have added this task:
 ```
 
 
-### `done` - Describe action
+### `done`
 
 Marks a specific task as done.
 
@@ -92,7 +92,7 @@ Nice! I have marked this task as done:
 ```
 
 
-### `delete` - Describe action
+### `delete`
 
 Deletes a specific task.
 
@@ -108,7 +108,7 @@ Noted. I have removed this task:
 ```
 
 
-### `list` - Describe action
+### `list`
 
 List the tasks that bobo_bot is currently tracking.
 
@@ -129,7 +129,7 @@ Here are your tasks in your list:
 ```
 
 
-### `find` - Describe action
+### `find`
 
 Finds and returns a list of tasks that contains the user specified keyword.
 
@@ -149,7 +149,7 @@ Found them! Here are the matching tasks in my list:
 ```
 
 
-### `snooze` - Describe action
+### `snooze`
 
 Snoozes a particular task by a user specified amount of time.
 
@@ -172,7 +172,7 @@ Okay! I have snoozed your task:
 ```
 
 
-### `bye` - Describe action
+### `bye`
 
 Closes the app.
 
